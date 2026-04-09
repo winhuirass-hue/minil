@@ -6,6 +6,7 @@
 .global fork, execve, waitpid
 .global _exit, getpid, gethostname
 .global unlink, rename
+.global pipe, dup2, chdir, getcwd, geteuid
 
 .section .text
 
@@ -88,5 +89,30 @@ unlink:
 /* int rename(const char *old, const char *new) */
 rename:
     mov $82, %rax          /* SYS_rename */
+    syscall
+    ret
+
+pipe:
+    mov $22, %rax     # SYS_pipe
+    syscall
+    ret
+
+dup2:
+    mov $33, %rax     # SYS_dup2
+    syscall
+    ret
+
+chdir:
+    mov $80, %rax     # SYS_chdir
+    syscall
+    ret
+
+getcwd:
+    mov $79, %rax     # SYS_getcwd
+    syscall
+    ret
+
+geteuid:
+    mov $107, %rax    # SYS_geteuid
     syscall
     ret
