@@ -7,7 +7,10 @@
 .global _exit, getpid, gethostname
 .global unlink, rename
 .global pipe, dup2, chdir, getcwd, geteuid
+.section .bss
 .global environ
+environ:
+    .quad 0
 
 .section .text
 
@@ -32,8 +35,6 @@ _start:
 
 
 /* ---------------- syscalls ---------------- */
-environ:
-    .quad 0
 
 /* ssize_t read(int fd, void *buf, size_t n) */
 read:
