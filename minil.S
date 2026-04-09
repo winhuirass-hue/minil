@@ -90,4 +90,3 @@ rename:
     mov $82, %rax          /* SYS_rename */
     syscall
     ret
-``
