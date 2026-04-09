@@ -7,6 +7,7 @@
 .global _exit, getpid, gethostname
 .global unlink, rename
 .global pipe, dup2, chdir, getcwd, geteuid
+.global environ
 
 .section .text
 
@@ -14,12 +15,25 @@
 .extern main
 _start:
     xor %rbp, %rbp
+
+    /* ----- extract envp from stack ----- */
+    mov (%rsp), %rdi        # rdi = argc
+    lea 8(%rsp), %rsi       # rsi = argv
+    lea 8(%rsi,%rdi,8), %rdx  # rdx = &argv[argc]
+    add $8, %rdx            # skip NULL → envp
+
+    mov %rdx, environ(%rip) # environ = envp
+
     call main
+
     mov %rax, %rdi
-    mov $60, %rax          /* SYS_exit */
+    mov $60, %rax            # SYS_exit
     syscall
 
+
 /* ---------------- syscalls ---------------- */
+environ:
+    .quad 0
 
 /* ssize_t read(int fd, void *buf, size_t n) */
 read:
