@@ -1,94 +1,98 @@
 /* This software is dedicated to the public domain under CC0 1.0 Universal. */
 /* See LICENCE.l for full legal text. */
-.intel_syntax noprefix
-.global _start
-.global environ
 
-.extern main
+        .global _start
+        .global environ
+        .extern main
 
-.section .bss
+/* ====================== bss ====================== */
+        .section .bss
 #if defined(__x86_64__)
 environ:
-    .quad 0
+        .quad 0
 #else
 environ:
-    .long 0
+        .long 0
 #endif
 
-.section .text
+
+/* ====================== text ====================== */
+        .section .text
 
 _start:
 
 #if defined(__x86_64__)
 
-    xor rbp, rbp
+/* ---------- x86-64 ---------- */
 
-    mov rdi, [rsp]              /* argc */
-    lea rsi, [rsp+8]            /* argv */
-    lea rdx, [rsi+rdi*8+8]      /* envp */
+        xorq    %rbp, %rbp
 
-    mov [rel environ], rdx
+        movq    (%rsp), %rdi            /* argc */
+        leaq    8(%rsp), %rsi           /* argv */
+        leaq    8(%rsi,%rdi,8), %rdx    /* envp */
 
-    call main
+        movq    %rdx, environ(%rip)
 
-    mov rdi, rax
-    mov rax, 60                 
-    syscall
+        call    main
 
-#else   /* ==================== i386 ==================== */
+        movq    %rax, %rdi
+        movq    $60, %rax               /* SYS_exit */
+        syscall
 
-    xor ebp, ebp
+#else   /* ---------- i386 ---------- */
 
-    mov eax, [esp]              /* argc */
-    lea ecx, [esp+4]            /* argv */
-    lea edx, [ecx+eax*4+4]      /* envp */
+        xorl    %ebp, %ebp
 
-    mov [environ], edx
+        movl    (%esp), %eax            /* argc */
+        leal    4(%esp), %ecx           /* argv */
+        leal    4(%ecx,%eax,4), %edx    /* envp */
 
-    push edx
-    push ecx
-    push eax
-    call main
+        movl    %edx, environ
 
-    mov ebx, eax
-    mov eax, 1                  /* SYS_exit */
-    int 0x80
+        pushl   %edx
+        pushl   %ecx
+        pushl   %eax
+        call    main
+
+        movl    %eax, %ebx
+        movl    $1, %eax                /* SYS_exit */
+        int     $0x80
 
 #endif
 
 
 /* ====================== syscalls ====================== */
 
-.global write
+        .global write
 write:
 #if defined(__x86_64__)
-    mov rax, 1                  /* SYS_write */
-    syscall
+        movq    $1, %rax                /* SYS_write */
+        syscall
 #else
-    mov eax, 4                  /* SYS_write */
-    int 0x80
+        movl    $4, %eax                /* SYS_write */
+        int     $0x80
 #endif
-    ret
+        ret
 
 
-.global read
+        .global read
 read:
 #if defined(__x86_64__)
-    mov rax, 0                  /* SYS_read */
-    syscall
+        movq    $0, %rax                /* SYS_read */
+        syscall
 #else
-    mov eax, 3                  /* SYS_read */
-    int 0x80
+        movl    $3, %eax                /* SYS_read */
+        int     $0x80
 #endif
-    ret
+        ret
 
 
-.global _exit
+        .global _exit
 _exit:
 #if defined(__x86_64__)
-    mov rax, 60                 /* SYS_exit */
-    syscall
+        movq    $60, %rax               /* SYS_exit */
+        syscall
 #else
-    mov eax, 1
-    int 0x80
+        movl    $1, %eax
+        int     $0x80
 #endif
