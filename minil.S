@@ -1,4 +1,5 @@
-/* a minil c library */
+/* This software is dedicated to the public domain under CC0 1.0 Universal. */
+/* See LICENCE.l for full legal text. */
 .intel_syntax noprefix
 .global _start
 .global environ
