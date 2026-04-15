@@ -1,133 +1,93 @@
-/* minil.S  — single-file mini libc (x86-64 Linux) */
-/* syscall-only, no glibc, no stdio, no stdlib */
-
+/* a minil c library */
+.intel_syntax noprefix
 .global _start
-.global read, write, open, close
-.global fork, execve, waitpid
-.global _exit, getpid, gethostname
-.global unlink, rename
-.global pipe, dup2, chdir, getcwd, geteuid
-.section .bss
 .global environ
+
+.extern main
+
+.section .bss
+#if defined(__x86_64__)
 environ:
     .quad 0
+#else
+environ:
+    .long 0
+#endif
 
 .section .text
 
-/* ---------------- entry point ---------------- */
-.extern main
 _start:
-    xor %rbp, %rbp
 
-    /* ----- extract envp from stack ----- */
-    mov (%rsp), %rdi        # rdi = argc
-    lea 8(%rsp), %rsi       # rsi = argv
-    lea 8(%rsi,%rdi,8), %rdx  # rdx = &argv[argc]
-    add $8, %rdx            # skip NULL → envp
+#if defined(__x86_64__)
 
-    mov %rdx, environ(%rip) # environ = envp
+    xor rbp, rbp
+
+    mov rdi, [rsp]              /* argc */
+    lea rsi, [rsp+8]            /* argv */
+    lea rdx, [rsi+rdi*8+8]      /* envp */
+
+    mov [rel environ], rdx
 
     call main
 
-    mov %rax, %rdi
-    mov $60, %rax            # SYS_exit
+    mov rdi, rax
+    mov rax, 60                 
     syscall
 
+#else   /* ==================== i386 ==================== */
 
-/* ---------------- syscalls ---------------- */
+    xor ebp, ebp
 
-/* ssize_t read(int fd, void *buf, size_t n) */
-read:
-    mov $0, %rax           /* SYS_read */
-    syscall
-    ret
+    mov eax, [esp]              /* argc */
+    lea ecx, [esp+4]            /* argv */
+    lea edx, [ecx+eax*4+4]      /* envp */
 
-/* ssize_t write(int fd, const void *buf, size_t n) */
+    mov [environ], edx
+
+    push edx
+    push ecx
+    push eax
+    call main
+
+    mov ebx, eax
+    mov eax, 1                  /* SYS_exit */
+    int 0x80
+
+#endif
+
+
+/* ====================== syscalls ====================== */
+
+.global write
 write:
-    mov $1, %rax           /* SYS_write */
+#if defined(__x86_64__)
+    mov rax, 1                  /* SYS_write */
     syscall
+#else
+    mov eax, 4                  /* SYS_write */
+    int 0x80
+#endif
     ret
 
-/* int open(const char *path, int flags, int mode) */
-open:
-    mov $2, %rax           /* SYS_open */
+
+.global read
+read:
+#if defined(__x86_64__)
+    mov rax, 0                  /* SYS_read */
     syscall
+#else
+    mov eax, 3                  /* SYS_read */
+    int 0x80
+#endif
     ret
 
-/* int close(int fd) */
-close:
-    mov $3, %rax           /* SYS_close */
-    syscall
-    ret
 
-/* int fork(void) */
-fork:
-    mov $57, %rax          /* SYS_fork */
-    syscall
-    ret
-
-/* int execve(const char *p, char *const a[], char *const e[]) */
-execve:
-    mov $59, %rax          /* SYS_execve */
-    syscall
-    ret
-
-/* int waitpid(int pid, int *status, int options) */
-waitpid:
-    mov $61, %rax          /* SYS_wait4 */
-    syscall
-    ret
-
-/* void _exit(int code) */
+.global _exit
 _exit:
-    mov $60, %rax          /* SYS_exit */
+#if defined(__x86_64__)
+    mov rax, 60                 /* SYS_exit */
     syscall
-
-/* int getpid(void) */
-getpid:
-    mov $39, %rax          /* SYS_getpid */
-    syscall
-    ret
-
-/* int gethostname(char *buf, size_t len) */
-gethostname:
-    mov $170, %rax         /* SYS_gethostname */
-    syscall
-    ret
-
-/* int unlink(const char *path) */
-unlink:
-    mov $87, %rax          /* SYS_unlink */
-    syscall
-    ret
-
-/* int rename(const char *old, const char *new) */
-rename:
-    mov $82, %rax          /* SYS_rename */
-    syscall
-    ret
-
-pipe:
-    mov $22, %rax     # SYS_pipe
-    syscall
-    ret
-
-dup2:
-    mov $33, %rax     # SYS_dup2
-    syscall
-    ret
-
-chdir:
-    mov $80, %rax     # SYS_chdir
-    syscall
-    ret
-
-getcwd:
-    mov $79, %rax     # SYS_getcwd
-    syscall
-    ret
-
-geteuid:
-    mov $107, %rax    # SYS_geteuid
-    syscall
-    ret
+#else
+    mov eax, 1
+    int 0x80
+#endif
