@@ -66,11 +66,18 @@ _start:
         .global write
 write:
 #if defined(__x86_64__)
+
         movq    $1, %rax                /* SYS_write */
         syscall
+
 #else
+
+        movl    4(%esp), %ebx           /* fd */
+        movl    8(%esp), %ecx           /* buf */
+        movl    12(%esp), %edx          /* len */
         movl    $4, %eax                /* SYS_write */
         int     $0x80
+
 #endif
         ret
 
@@ -78,11 +85,18 @@ write:
         .global read
 read:
 #if defined(__x86_64__)
+
         movq    $0, %rax                /* SYS_read */
         syscall
+
 #else
-        movl    $3, %eax                /* SYS_read */
+
+        movl    4(%esp), %ebx
+        movl    8(%esp), %ecx
+        movl    12(%esp), %edx
+        movl    $3, %eax
         int     $0x80
+
 #endif
         ret
 
