@@ -59,13 +59,14 @@ _start:
 /* ---------- x86-64 ---------- */
 
         xorq    %rbp, %rbp
-        andq    $-16, %rsp
+        movq    %rsp, %r12
 
         movq    (%rsp), %rdi            /* argc */
         leaq    8(%rsp), %rsi           /* argv */
         leaq    8(%rsi,%rdi,8), %rdx    /* envp */
 
         movq    %rdx, environ(%rip)
+        andq    $-16, %rsp
 
         call    call_init_array
         call    main
