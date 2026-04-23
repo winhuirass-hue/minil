@@ -61,8 +61,8 @@ _start:
         xorq    %rbp, %rbp
         movq    %rsp, %r12
 
-        movq    (%rsp), %rdi            /* argc */
-        leaq    8(%rsp), %rsi           /* argv */
+        movq    (%r12), %rdi            /* argc */
+        leaq    8(%r12), %rsi           /* argv */
         leaq    8(%rsi,%rdi,8), %rdx    /* envp */
 
         movq    %rdx, environ(%rip)
