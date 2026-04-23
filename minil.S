@@ -59,6 +59,7 @@ _start:
 /* ---------- x86-64 ---------- */
 
         xorq    %rbp, %rbp
+        andq    $-16, %rsp
 
         movq    (%rsp), %rdi            /* argc */
         leaq    8(%rsp), %rsi           /* argv */
