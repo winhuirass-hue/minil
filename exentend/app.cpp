@@ -1,3 +1,5 @@
+extern "C" long write(int, const void*, unsigned long);
+
 struct A {
     A() {
         write(1, "ctor\n", 5);
