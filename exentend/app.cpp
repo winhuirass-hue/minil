@@ -1,5 +1,6 @@
 extern "C" long write(int, const void*, unsigned long);
 
+int main() {
 struct A {
     A() {
         write(1, "ctor\n", 5);
@@ -7,8 +8,4 @@ struct A {
 };
 
 A global;
-
-int main() {
-    write(1, "hello\n", 6);
-    return 0;
 }
