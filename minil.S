@@ -138,6 +138,7 @@ read:
         .global _exit
 _exit:
 #if defined(__x86_64__)
+        /* rdi already contains status */
         movq    $60, %rax               /* SYS_exit */
         syscall
 #else
