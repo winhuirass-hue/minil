@@ -160,5 +160,9 @@ int main(void) {
 - OS and runtime development
 - libc‑free sandboxed tools
 
----
-[![CC0 1.0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+<p align="right">
+  <a href="https://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="CC0 1.0">
+  </a>
+</p>
