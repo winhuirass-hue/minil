@@ -1,9 +1,10 @@
-
 /* Minimal C support layer for freestanding C++
  * Works with minil.S
  * No malloc, no heap, no libc
- * CC0 1.0
  */
+/* This software is dedicated to the public domain under CC0 1.0 Universal. */
+/* See LICENCE.md for full legal text. */
+
 
 extern void _exit(int);
 
