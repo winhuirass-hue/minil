@@ -5,6 +5,9 @@
 /* This software is dedicated to the public domain under CC0 1.0 Universal. */
 /* See LICENCE.md for full legal text. */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern void _exit(int);
 
@@ -26,3 +29,7 @@ void __cxa_pure_virtual(void)
     abort();
 }
 
+
+#ifdef __cplusplus
+}
+#endif

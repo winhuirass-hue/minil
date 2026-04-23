@@ -147,3 +147,5 @@ _exit:
         movl    $1, %eax
         int     $0x80
 #endif
+
+.section .note.GNU-stack,"",@progbits
