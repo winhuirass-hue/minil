@@ -143,6 +143,7 @@ _exit:
         movq    $60, %rax               /* SYS_exit */
         syscall
 #else
+        movl    4(%esp), %ebx
         movl    $1, %eax
         int     $0x80
 #endif
