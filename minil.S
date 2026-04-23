@@ -86,6 +86,7 @@ _start:
         pushl   %edx
         pushl   %ecx
         pushl   %eax
+        call    call_init_array
         call    main
 
         movl    %eax, %ebx
