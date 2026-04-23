@@ -1,5 +1,5 @@
 /* This software is dedicated to the public domain under CC0 1.0 Universal. */
-/* See LICENCE.l for full legal text. */
+/* See LICENCE.md for full legal text. */
 
         .global _start
         .global environ
@@ -19,6 +19,39 @@ environ:
 /* ====================== text ====================== */
         .section .text
 
+.extern __init_array_start
+.extern __init_array_end
+
+call_init_array:
+#if defined(__x86_64__)
+        leaq __init_array_start(%rip), %rdi
+        leaq __init_array_end(%rip), %rsi
+1:
+        cmp %rdi, %rsi
+        je 2f
+        movq (%rdi), %rax
+        addq $8, %rdi
+        call *%rax
+        jmp 1b
+2:
+        ret
+
+#else
+
+        movl $__init_array_start, %esi
+        movl $__init_array_end, %edi
+1:
+        cmpl %esi, %edi
+        je 2f
+        movl (%esi), %eax
+        addl $4, %esi
+        call *%eax
+        jmp 1b
+2:
+        ret
+
+#endif
+
 _start:
 
 #if defined(__x86_64__)
@@ -33,6 +66,7 @@ _start:
 
         movq    %rdx, environ(%rip)
 
+        call    call_init_array
         call    main
 
         movq    %rax, %rdi
