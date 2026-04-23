@@ -67,6 +67,7 @@ _start:
 
         movq    %rdx, environ(%rip)
         andq    $-16, %rsp
+        subq $8, %rsp
 
         call    call_init_array
         call    main
