@@ -18,4 +18,4 @@ extern void _exit(int);
 void abort(void)
 {
     _exit(127);
-}aa
+}
