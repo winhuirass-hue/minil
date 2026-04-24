@@ -213,7 +213,7 @@ _exit:
 /* ============ math ============== */
 
 .global math_abs
-abs:
+math_abs:
 #if defined(__x86_64__)
     movl    %edi, %eax
     testl   %eax, %eax
@@ -245,7 +245,7 @@ math_max:
     ret
 
 .global math_min
-min:
+math_min:
 #if defined(__x86_64__)
     movl    %edi, %eax      /* eax = a */
     cmpl    %esi, %eax      /* compare b with a */
