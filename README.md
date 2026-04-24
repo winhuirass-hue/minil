@@ -82,7 +82,7 @@ int main(void) {
 
 
 <p align="right">
-  <a href="https://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="https://www.researchgate.net/profile/Donat-Agosti/publication/51971424/figure/fig2/AS:203212943564807@1425461149299/Logo-of-the-CC-Zero-or-CC0-Public-Domain-Dedication-License-No-Rights-Reserved-CC.png">
+  https://creativecommons.org/publicdomain/zero/1.0/
+    https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg
   </a>
 </p>
