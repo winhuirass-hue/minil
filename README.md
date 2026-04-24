@@ -83,6 +83,6 @@ int main(void) {
 
 <p align="right">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg" alt="License: CC0 1.0">
+    <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="License: CC0 1.0">
   </a>
 </p>
