@@ -82,7 +82,7 @@ int main(void) {
 
 
 <p align="right">
-  https://creativecommons.org/publicdomain/zero/1.0/
-    https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg
+  <a href="https://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg" alt="License: CC0 1.0">
   </a>
 </p>
