@@ -20,6 +20,11 @@ void abort(void)
     _exit(127);
 }
 
+void __cxa_pure_virtual(void)
+{
+    abort();
+}
+
 #ifdef __cplusplus
 }
 #endif
