@@ -82,9 +82,9 @@ int main(void) {
 
 
 <p align="right">
+  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-green.svg">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
     <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="License: CC0 1.0">
   </a>
-  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-green.svg">
 </p>
 
