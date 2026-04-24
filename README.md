@@ -2,6 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-green.svg">
+  <img src="https://img.shields.io/badge/libc-none-red.svg">
 </p>
 
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
