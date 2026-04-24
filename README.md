@@ -86,3 +86,6 @@ int main(void) {
     <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="License: CC0 1.0">
   </a>
 </p>
+<p align="right">
+  <img src=https://img.shields.io/badge/arch-x86__64-blue.svg>
+</p>
