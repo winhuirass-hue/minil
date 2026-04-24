@@ -5,12 +5,15 @@
 CC  ?= gcc
 CXX ?= g++
 
-COMMON := -ffreestanding -nostdlib -no-pie -O2
+COMMON := -ffreestanding -nostdlib -no-pie -O2 \
+          -ffunction-sections -fdata-sections
 
 CFLAGS   := $(COMMON)
 CXXFLAGS := $(COMMON) -std=c++23 \
             -nostdinc++ \
             -fno-exceptions -fno-rtti -fno-threadsafe-statics
+
+LDFLAGS := -Wl,--gc-sections
 
 # Sources
 ASM_SRC := minil.S
@@ -22,26 +25,16 @@ ASM_OBJ := minil.o
 C_OBJ   := exender.o
 CPP_OBJ := app.o
 
-TARGET   := app
-TARGET32 := app32
+TARGET := app
 
 # --------------------------------------------------
-# Default build (x86-64)
+# Build (x86-64)
 # --------------------------------------------------
 
 all: $(TARGET)
 
 $(TARGET): $(ASM_OBJ) $(C_OBJ) $(CPP_OBJ)
-    $(CXX) $(CXXFLAGS) $^ -o $@
-
-# --------------------------------------------------
-# 32-bit build (i386)
-# --------------------------------------------------
-
-i386: $(TARGET32)
-
-$(TARGET32): $(ASM_SRC) $(C_SRC) $(CPP_SRC)
-    $(CXX) -m32 $(CXXFLAGS) $^ -o $@
+    $(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
 # --------------------------------------------------
 # Compile rules
@@ -64,6 +57,6 @@ run: $(TARGET)
     ./$(TARGET)
 
 clean:
-    rm -f *.o $(TARGET) $(TARGET32)
+    rm -f *.o $(TARGET)
 
-.PHONY: all i386 run clean
+.PHONY: all run clean
