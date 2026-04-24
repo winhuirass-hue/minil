@@ -1,5 +1,7 @@
 # minil
-
+<p align="center">
+  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-green.svg">
+</p>
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
 freestanding C.  
 It runs **without glibc, crt objects, stdio, stdlib, or C++ runtime**.
@@ -82,7 +84,6 @@ int main(void) {
 
 
 <p align="right">
-  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-green.svg">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
     <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="License: CC0 1.0">
   </a>
