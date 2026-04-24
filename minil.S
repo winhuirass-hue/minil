@@ -210,6 +210,8 @@ _exit:
         int     $0x80
 #endif
 
+/* ============ math ============== */
+
 .section .rodata
 nl:
         .byte 10
