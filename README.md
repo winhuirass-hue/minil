@@ -19,7 +19,7 @@ ABI, and system calls.
 - Manual `argc`, `argv`, `envp` extraction
 - Proper `environ` initialization
 - One `.S` file with C preprocessor for multi‑arch
-- Freestanding C application support
+- Freestanding C and C++ application support
 
 ---
 
