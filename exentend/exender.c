@@ -19,3 +19,7 @@ void abort(void)
 {
     _exit(127);
 }
+
+#ifdef __cplusplus
+}
+#endif
