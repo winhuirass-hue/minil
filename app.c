@@ -1,16 +1,14 @@
 /* This software is dedicated to the public domain under CC0 1.0 Universal. */
 /* See LICENCE.md for full legal text. */
-long write(int, const void*, unsigned long);
+void println(const char *);
 void _exit(int);
 
 int main(void)
 {
 #if defined(__x86_64__)
-    const char msg[] = "Hello from 64 bit minil\n";
+    println("Hello from 64 bit minil\n");
 #else
-    const char msg[] = "Hello from 32 bit minil\n";
+    println("Hello from 32 bit minil\n");
 #endif
-
-    write(1, msg, sizeof(msg) - 1);
     _exit(0);
 }
