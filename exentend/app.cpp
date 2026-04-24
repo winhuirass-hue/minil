@@ -1,11 +1,5 @@
-extern "C" long write(int, const void*, unsigned long);
+extern "C" void println(const char*);
 
 int main() {
-struct A {
-    A() {
-        write(1, "hello world!\n", 5);
-    }
-};
-
-A global;
+println("hello world!");
 }
