@@ -6,9 +6,9 @@ void _exit(int);
 int main(void)
 {
 #if defined(__x86_64__)
-    println("Hello from 64 bit minil\n");
+    println("Hello from 64 bit minil");
 #else
-    println("Hello from 32 bit minil\n");
+    println("Hello from 32 bit minil");
 #endif
     _exit(0);
 }
