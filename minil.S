@@ -212,6 +212,56 @@ _exit:
 
 /* ============ math ============== */
 
+.global math_abs
+abs:
+#if defined(__x86_64__)
+    movl    %edi, %eax
+    testl   %eax, %eax
+    jge     1f
+    negl    %eax
+#else
+    movl    4(%esp), %eax
+    testl   %eax, %eax
+    jge     1f
+    negl    %eax
+#endif
+1:
+    ret
+
+.global math_max
+math_max:
+#if defined(__x86_64__)
+    movl    %edi, %eax
+    cmpl    %esi, %eax
+    jge     1f
+    movl    %esi, %eax
+#else
+    movl    4(%esp), %eax
+    cmpl    8(%esp), %eax
+    jge     1f
+    movl    8(%esp), %eax
+#endif
+1:
+    ret
+
+.global math_min
+min:
+#if defined(__x86_64__)
+    movl    %edi, %eax      /* eax = a */
+    cmpl    %esi, %eax      /* compare b with a */
+    jle     1f              /* if a <= b, keep a */
+    movl    %esi, %eax      /* else eax = b */
+1:
+    ret 
+#else
+    movl    4(%esp), %eax   /* eax = a */
+    cmpl    8(%esp), %eax  /* compare b with a */
+    jle     1f
+    movl    8(%esp), %eax
+1:
+    ret
+#endif
+
 .section .rodata
 nl:
         .byte 10
