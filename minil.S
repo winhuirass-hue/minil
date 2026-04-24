@@ -139,6 +139,65 @@ read:
         ret
 
 
+        .global println
+println:
+#if defined(__x86_64__)
+        /* rdi = pointer to string */
+
+        /* strlen */
+        xorq    %rcx, %rcx
+.Llen:
+        cmpb    $0, (%rdi,%rcx)
+        je      .Lwrite
+        incq    %rcx
+        jmp     .Llen
+
+.Lwrite:
+        movq    %rcx, %rdx        /* len */
+        movq    %rdi, %rsi        /* buf */
+        movq    $1, %rdi          /* fd = stdout */
+        movq    $1, %rax          /* SYS_write */
+        syscall
+
+        /* newline */
+        movq    $1, %rdi
+        lea     nl(%rip), %rsi
+        movq    $1, %rdx
+        movq    $1, %rax
+        syscall
+        ret
+#else
+        /* i386 version */
+
+        pushl   %esi
+        pushl   %edi
+        movl    4(%esp), %esi     /* s */
+        xor     %ecx, %ecx
+.Llen32:
+        cmpb    $0, (%esi,%ecx)
+        je      .Lwrite32
+        incl    %ecx
+        jmp     .Llen32
+
+.Lwrite32:
+        movl    %ecx, %edx        /* len */
+        movl    %esi, %ecx        /* buf */
+        movl    $1, %ebx          /* fd */
+        movl    $4, %eax          /* SYS_write */
+        int     $0x80
+
+        movl    $1, %ebx
+        lea     nl, %ecx
+        movl    $1, %edx
+        movl    $4, %eax
+        int     $0x80
+
+        popl    %edi
+        popl    %esi
+        ret
+#endif
+
+
         .global _exit
 _exit:
 #if defined(__x86_64__)
@@ -150,5 +209,9 @@ _exit:
         movl    $1, %eax
         int     $0x80
 #endif
+
+.section .rodata
+nl:
+        .byte 10
 
 .section .note.GNU-stack,"",@progbits
