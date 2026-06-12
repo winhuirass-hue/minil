@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
  <g class="layer">
   <title>Layer 1</title>
@@ -29,7 +29,7 @@
   <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_27" stroke="#ffffff" stroke-width="0" text-anchor="middle" transform="matrix(-3.66162 0 0 4.30469 1418.85 -644.053)" x="300.4" xml:space="preserve" y="212.4">1</text>
   <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_28" stroke="#ffffff" stroke-width="0" text-anchor="middle" transform="matrix(3.55096 0 0 -3.94395 -695.915 1026.82)" x="294.94" xml:space="preserve" y="217.05">1</text>
  </g>
-</svg>"
+</svg>
 </p>
 
 <p align="center">
