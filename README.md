@@ -103,4 +103,4 @@ minil follows a simple rule:
   </a>
 </p>
 
-`#define minil_signature = 0x1DB`
+`#define MINIL_SIGNATURE 0x1DB`
