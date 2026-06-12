@@ -12,6 +12,17 @@
     </filter>
   </defs>
   <g fill="#00ff00" style="filter: drop-shadow(0 0 4px #00ff00)" filter="url(#glitch)">
+   
+    <!-- red shift -->
+    <g fill="red" transform="translate(2,0)" opacity="0.6">
+      <text transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)">1</text>
+    </g>
+
+    <!-- blue shift -->
+    <g fill="blue" transform="translate(-2,0)" opacity="0.6">
+      <text transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)">1</text>
+    </g>
+
   <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)" x="149.4"  y="120.4">1</text>
   <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(7.30617 0.0110782 -0.0142672 7.0803 -913.503 -595.004)" x="146.92"  y="123.23">1</text>
   <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(4.81943 0 0 5.03676 -997.361 -791.766)" x="259.4"  y="212.4">1</text>
