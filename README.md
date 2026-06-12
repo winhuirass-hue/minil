@@ -1,9 +1,9 @@
 # minil
 
 <p align="center">
-  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-blue.svg?style=flat">
-  <img src="https://img.shields.io/badge/libc-none-red.svg?logo=c&logoColor=white&style=flat">
-  <img src="https://img.shields.io/badge/freestanding-yes-green.svg?style=flat">
+  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-blue.svg?style=flat-square">
+  <img src="https://img.shields.io/badge/libc-none-red.svg?logo=c&logoColor=white&style=flat-square">
+  <img src="https://img.shields.io/badge/freestanding-yes-green.svg?style=flat-square">
 </p>
 
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
