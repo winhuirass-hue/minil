@@ -103,4 +103,4 @@ minil follows a simple rule:
   </a>
 </p>
 
-`**signature**:0x1DB`
+`signature:0x1DB`
