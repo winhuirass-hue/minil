@@ -11,7 +11,7 @@
 
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
 freestanding C.  
-It runs **without glibc, crt objects, stdio, stdlib, or C++ runtime**.
+It runs **without glibc, crt objects, `stdio.h`, `stdlib.h`, or C++ runtime**.
 
 The project demonstrates full control over the Linux process entry point,
 ABI, and system calls.
