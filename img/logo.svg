@@ -1,26 +1,25 @@
 <svg width="580" height="320" viewBox="0 0 580 320" xmlns="http://www.w3.org/2000/svg">
- <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+
   <g fill="#00ff00" font-family="Monospace" text-anchor="middle">
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_2" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)" x="149.4" xml:space="preserve" y="120.4">1</text>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_7" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(7.30617 0.0110782 -0.0142672 7.0803 -913.503 -595.004)" x="146.92" xml:space="preserve" y="123.23">1</text>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_5" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(2.41391 0 0 3.57411 -393.133 -537.007)" x="269.4" xml:space="preserve" y="221.4"/>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_6" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(4.81943 0 0 5.03676 -997.361 -791.766)" x="259.4" xml:space="preserve" y="212.4">1</text>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_8" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(2.44001 0 0 1 -330.917 0)" x="236.4" xml:space="preserve" y="168.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_9" stroke="#00ff00" stroke-width="0" text-anchor="middle" x="236.4" xml:space="preserve" y="156.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_11" stroke="#00ff00" stroke-width="0" text-anchor="middle" x="248.4" xml:space="preserve" y="168.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_12" stroke="#00ff00" stroke-width="0" text-anchor="middle" x="248.4" xml:space="preserve" y="168.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_13" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(1.98499 0 0 1 -256.097 0)" x="253.4" xml:space="preserve" y="133.4"/>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_14" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(3.91083 0 0 3.01187 -672.62 -257.304)" x="236.4" xml:space="preserve" y="140.4">0</text>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_15" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(4.39919 0 0 5.27528 -1004.49 -906.098)" x="336.4" xml:space="preserve" y="223.4">1</text>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_19" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(2.41391 0 0 3.57411 -247.133 -560.007)" x="277.69" xml:space="preserve" y="227"/>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_20" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(4.81943 0 0 5.03676 -851.361 -814.766)" x="263.55" xml:space="preserve" y="216.37">1</text>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_21" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(2.44001 0 0 1 -184.917 -23)" x="244.6" xml:space="preserve" y="188.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_22" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(1 0 0 1 146 -23)" x="256.4" xml:space="preserve" y="176.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_23" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(1 0 0 1 146 -23)" x="268.4" xml:space="preserve" y="188.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_24" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(1 0 0 1 146 -23)" x="268.4" xml:space="preserve" y="188.4"/>
-  <text fill="#000000" font-family="Monospace" font-size="24" id="svg_25" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(1.98499 0 0 1 -110.097 -23)" x="263.48" xml:space="preserve" y="153.4"/>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_26" stroke="#00ff00" stroke-width="0" text-anchor="middle" transform="matrix(3.91083 0 0 3.01187 -526.62 -280.304)" x="241.51" xml:space="preserve" y="147.04">0</text>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_27" stroke="#ffffff" stroke-width="0" text-anchor="middle" transform="matrix(-3.66162 0 0 4.30469 1418.85 -644.053)" x="300.4" xml:space="preserve" y="212.4">1</text>
-  <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_28" stroke="#ffffff" stroke-width="0" text-anchor="middle" transform="matrix(3.55096 0 0 -3.94395 -695.915 1026.82)" x="294.94" xml:space="preserve" y="217.05">1</text>
- </g>
+
+    <text transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)">1</text>
+
+    <text transform="matrix(7.30617 0.0110782 -0.0142672 7.0803 -913.503 -595.004)">1</text>
+
+    <text transform="matrix(4.81943 0 0 5.03676 -997.361 -791.766)">1</text>
+
+    <text transform="matrix(3.91083 0 0 3.01187 -672.62 -257.304)">0</text>
+
+    <text transform="matrix(4.39919 0 0 5.27528 -1004.49 -906.098)">1</text>
+
+    <text transform="matrix(4.81943 0 0 5.03676 -851.361 -814.766)">1</text>
+
+    <text transform="matrix(3.91083 0 0 3.01187 -526.62 -280.304)">0</text>
+
+    <text transform="matrix(-3.66162 0 0 4.30469 1418.85 -644.053)">1</text>
+
+    <text transform="matrix(3.55096 0 0 -3.94395 -695.915 1026.82)">1</text>
+
+  </g>
+
 </svg>
