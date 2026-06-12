@@ -781,27 +781,15 @@ char* strdup(const char* s)
 
 #ifdef __cplusplus
 
-void* operator new(size_t n)
-{
-    return malloc(n);
-}
+/* Always needed (basic) */
+void* operator new(size_t n) { return malloc(n); }
+void* operator new[](size_t n) { return malloc(n); }
 
-void* operator new[](size_t n)
-{
-    return malloc(n);
-}
+void operator delete(void* p) noexcept { free(p); }
+void operator delete[](void* p) noexcept { free(p); }
 
-void operator delete(void* p) noexcept
-{
-    free(p);
-}
-
-void operator delete[](void* p) noexcept
-{
-    free(p);
-}
-
-/* C++14+ sized delete */
+/* Detector and addition of sized delete for C++14 and above */
+#if __cplusplus >= 201402L
 
 void operator delete(void* p, size_t) noexcept
 {
@@ -813,4 +801,6 @@ void operator delete[](void* p, size_t) noexcept
     free(p);
 }
 
-#endif
+#endif // __cplusplus >= 201402L
+
+#endif // __cplusplus
