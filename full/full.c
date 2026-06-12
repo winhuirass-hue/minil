@@ -37,9 +37,8 @@ __attribute__((noreturn))
 void abort(void)
 {
     _exit(127);
-
-    for (;;) {
-        /* unreachable */
+    while (1) {
+        /* fallback if exit fails */
     }
 }
 
