@@ -275,6 +275,39 @@ _exit:
         /* Fallthrough in case of syscall failure */
         ret
 
+.global open
+open:
+#if defined(__i386__)
+        pushl   %ebx
+        movl    8(%esp), ARG0           /* pathname */
+        movl    12(%esp), ARG1          /* flags */
+        movl    16(%esp), ARG2          /* mode */
+        movl    $SYS_OPEN, SYSCALL_REG
+        ASM_SYSCALL
+        popl    %ebx
+#elif defined(__x86_64__)
+        /* Аргументи вже у %rdi, %rsi, %rdx (ARG0, ARG1, ARG2) */
+        movq    $SYS_OPEN, SYSCALL_REG
+        ASM_SYSCALL
+#elif defined(__aarch64__)
+        mov     ARG3, x2                /* mode -> ARG3 */
+        mov     ARG2, x1                /* flags -> ARG2 */
+        mov     ARG1, x0                /* pathname -> ARG1 */
+        mov     ARG0, #AT_FDCWD         /* dirfd = AT_FDCWD */
+        
+        mov     SYSCALL_REG, SYS_OPENAT
+        ASM_SYSCALL
+#elif defined(__riscv)
+        mv      ARG3, a2                /* mode -> ARG3 */
+        mv      ARG2, a1                /* flags -> ARG2 */
+        mv      ARG1, a0                /* pathname -> ARG1 */
+        li      ARG0, AT_FDCWD          /* dirfd = AT_FDCWD */
+        
+        li      SYSCALL_REG, SYS_OPENAT
+        ASM_SYSCALL
+#endif
+        ret
+
 /*
  * println(const char *s)
  * Writes s followed by a newline to stdout.
