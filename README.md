@@ -3,6 +3,10 @@
 </p>
 
 <p align="center">
+  <i>minimal runtime, maximal control</i>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-blue.svg?style=flat-square">
   <img src="https://img.shields.io/badge/libc-none-red.svg?logo=c&logoColor=white&style=flat-square">
   <img src="https://img.shields.io/badge/freestanding-yes-green.svg?style=flat-square">
@@ -11,7 +15,7 @@
 
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
 freestanding C.  
-It runs **without glibc, crt objects, `stdio.h`, `stdlib.h`, or C++ runtime**.
+It runs **without glibc, CRT objects, standard libraries (`stdio.h`, `stdlib.h`), or any C++ runtime**.
 
 The project demonstrates full control over the Linux process entry point,
 ABI, and system calls.
