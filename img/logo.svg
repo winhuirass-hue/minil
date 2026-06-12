@@ -1,5 +1,16 @@
 <svg width="580" height="320" viewBox="0 0 580 320" xmlns="http://www.w3.org/2000/svg">
- <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <!-- glitch filter -->
+  <defs>
+    <filter id="glitch">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2">
+        <animate attributeName="baseFrequency"
+          values="0.01;0.02;0.01"
+          dur="0.3s"
+          repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="5"/>
+    </filter>
+  </defs>
   <g fill="#00ff00" style="filter: drop-shadow(0 0 4px #00ff00)">
   <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)" x="149.4"  y="120.4">1</text>
   <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(7.30617 0.0110782 -0.0142672 7.0803 -913.503 -595.004)" x="146.92"  y="123.23">1</text>
