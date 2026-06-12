@@ -116,16 +116,18 @@ _start:
 
         movq    %r15, environ(%rip)
 
-        andq    $-16, %rsp              /* correct alignment before call */
+        andq $-16, %rsp
+        subq $8, %rsp
+        call call_init_array
+        addq $8, %rsp
 
-        call    call_init_array
 
         movq    %r13, ARG0              /* argc */
         movq    %r14, ARG1              /* argv */
         movq    %r15, ARG2              /* envp */
         call    main
 
-        movq    %rax, ARG0              /* Передаємо код повернення в exit */
+        movq    %rax, ARG0              /* return code from main */
         movq    $SYS_EXIT, SYSCALL_REG
         ASM_SYSCALL
 
@@ -155,7 +157,7 @@ _start:
         call    main
         addl    $12, %esp
 
-        movl    %eax, ARG0              /* Передаємо код повернення в exit */
+        movl    %eax, ARG0             /* return code from main */ 
         movl    $SYS_EXIT, SYSCALL_REG
         ASM_SYSCALL
 
