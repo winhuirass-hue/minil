@@ -32,7 +32,7 @@ ABI, and system calls.
 - Manual `argc`, `argv`, `envp` extraction
 - Proper `environ` initialization
 - One `.S` file with C preprocessor for multi‑arch
-- Freestanding C and C++ application support
+- Freestanding C/C++ application support
 
 ---
 
@@ -90,9 +90,17 @@ int main(void) {
 - libc‑free sandboxed tools
 
 
+## Philosophy
+
+minil follows a simple rule:
+
+> no hidden runtime, no implicit initialization, no abstraction over syscalls.
+
+
 <p align="right">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
     <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="License: CC0 1.0">
   </a>
 </p>
 
+`**signature**` `:` `0x1DB`
