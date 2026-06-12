@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-blue.svg">
-  <img src="https://img.shields.io/badge/libc-none-red.svg">
+  <img src="https://img.shields.io/badge/libc-none-red.svg?logo=c&logoColor=white">
   <img src="https://img.shields.io/badge/freestanding-yes-green.svg">
 </p>
 
