@@ -2,7 +2,6 @@
   <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
  <g class="layer">
-  <title>Layer 1</title>
   <text fill="#00ff00" font-family="Monospace" font-size="24" id="svg_2" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)" x="149.4" xml:space="preserve" y="120.4">1</text>
   <text fill="#000000" font-family="Serif" font-size="24" id="svg_1" stroke="#000000" stroke-width="0" text-anchor="middle" x="160.2" xml:space="preserve" y="248.4"/>
   <text fill="#000000" font-family="Serif" font-size="24" id="svg_3" stroke="#000000" stroke-width="0" text-anchor="middle" x="144.2" xml:space="preserve" y="114.4"/>
