@@ -1,4 +1,3 @@
-** *`
 <p align="center">
   <img src="img/logo.svg">
 </p>
@@ -13,7 +12,7 @@
   <img src="https://img.shields.io/badge/freestanding-yes-green.svg?style=flat-square">
   <img src="https://img.shields.io/github/stars/winhuirass-hue/minil?color=yellow&style=flat-square">
 </p>
-
+**<> *``
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
 freestanding C.  
 It runs **without glibc, CRT objects, standard libraries (`stdio.h`, `stdlib.h`), or any C++ runtime**.
