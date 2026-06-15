@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/freestanding-yes-green.svg?style=flat-square">
   <img src="https://img.shields.io/github/stars/winhuirass-hue/minil?color=yellow&style=flat-square">
 </p>
-<body>** <p align="center"> <hr> <strong>---</strong> </hr> <i>*</i> <g> ## *
+<body>** <p align="center"> <hr align="center"> <strong>---</strong> <i>*</i> <g> ## *
 </g> </p> `</body>`
 **minil** is a minimal Linux user‑space runtime written in pure assembly and
 freestanding C.  
