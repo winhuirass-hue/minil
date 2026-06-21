@@ -7,6 +7,10 @@ extern "C" {
 
 typedef unsigned long size_t;
 typedef unsigned char u8;
+typedef unsigned int  u32;
+
+typedef signed char        i8;
+typedef int                i32;
 
 typedef unsigned short sa_family_t;
 typedef unsigned int   socklen_t;
@@ -417,7 +421,7 @@ typedef struct HeapBlock {
 
 #define HEADER_SIZE ALIGN_UP(sizeof(HeapBlock))
 
-static u8 heap[HEAP_SIZE] __attribute__((aligned(16)));
+static u32 heap[HEAP_SIZE] __attribute__((aligned(16)));
 static size_t heap_off = 0;
 static HeapBlock* heap_head = 0;
 
