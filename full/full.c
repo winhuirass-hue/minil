@@ -514,7 +514,7 @@ static HeapBlock* heap_new_block(size_t n)
     if (need > HEAP_SIZE - heap_off)
         abort();
 
-    block = (HeapBlock*)&heap[heap_off];
+    block = (HeapBlock*)((u8*)heap + heap_off);
 
     block->size = n;
     block->free = 0;
