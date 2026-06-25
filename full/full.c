@@ -39,7 +39,7 @@ struct sockaddr_un {
 #define SOCK_STREAM  1
 #define SOCK_DGRAM   2
 
-extern void _exit(int);
+extern void _exit(int) __attribute__((noreturn));
 extern char** environ;
 
 /* --------------------------------------------------
@@ -49,9 +49,7 @@ __attribute__((noreturn))
 void abort(void)
 {
     _exit(127);
-    while (1) {
-        /* fallback if exit fails */
-    }
+    __builtin_unreachable();
 }
 
 void __cxa_pure_virtual(void)
