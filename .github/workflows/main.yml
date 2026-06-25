@@ -14,10 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: build-demo
-      run: 
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+      run: gcc -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app
+    - name: build-dem32
+      run: gcc -nostdlib -no-pie -m32 minil.S app.c -O2 -ffreestanding -o app
