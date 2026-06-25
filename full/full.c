@@ -5,7 +5,15 @@
 extern "C" {
 #endif
 
-typedef unsigned long size_t;
+#define ALIGNOF(t) __alignof__(t)
+#define OFFSETOF(t,m) __builtin_offsetof(t,m)
+
+#define LIKELY(x)   __builtin_expect(!!(x), 1)
+#define UNLIKELY(x) __builtin_expect(!!(x), 0)
+
+#define TRAP()      __builtin_trap()
+
+typedef __SIZE_TYPE__ size_t;
 typedef unsigned char u8;
 typedef unsigned int  u32;
 
