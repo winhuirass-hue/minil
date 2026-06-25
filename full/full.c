@@ -49,7 +49,6 @@ __attribute__((noreturn))
 void abort(void)
 {
     _exit(127);
-    __builtin_unreachable();
 }
 
 void __cxa_pure_virtual(void)
