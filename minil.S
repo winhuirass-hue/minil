@@ -278,7 +278,7 @@ _exit:
         ASM_SYSCALL
 #endif
         /* Fallthrough in case of syscall failure */
-        ret
+        jmp 1b
 
 .global open
 open:
