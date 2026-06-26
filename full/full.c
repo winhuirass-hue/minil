@@ -13,6 +13,8 @@ extern "C" {
 
 #define TRAP()      __builtin_trap()
 
+typedef __INTPTR_TYPE__ intptr_t;
+
 typedef __SIZE_TYPE__ size_t;
 typedef unsigned char u8;
 typedef unsigned int  u32;
@@ -294,7 +296,7 @@ void* mmap(void* addr,
         (long)off
     );
 
-    return (void*)ret;
+    return (void*)(intptr_t)ret;
 
 #else
 
@@ -318,8 +320,8 @@ void* mmap(void* addr,
 
     ret = sys_call1(90, (long)&args);   /* SYS_mmap = 90 */
 
-    return (void*)ret;
-
+   return (void*)(intptr_t)ret;
+    
 #endif
 }
 
