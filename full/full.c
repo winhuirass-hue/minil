@@ -5,6 +5,16 @@
 extern "C" {
 #endif
 
+#define PROT_NONE   0x0
+#define PROT_READ   0x1
+#define PROT_WRITE  0x2
+#define PROT_EXEC   0x4
+
+#define MAP_SHARED      0x01
+#define MAP_PRIVATE     0x02
+#define MAP_FIXED       0x10
+#define MAP_ANONYMOUS   0x20
+
 size_t strlen(const char*);
 int strncmp(const char*, const char*, size_t);
 
@@ -358,6 +368,25 @@ void* memset(void* dst, int val, size_t n)
     u8* p = (u8*)dst;
     u8 v = (u8)val;
 
+    while (((uintptr_t)p & (sizeof(size_t) - 1)) && n) {
+        *p++ = v;
+        --n;
+    }
+
+    size_t word = 0;
+
+    for (size_t i = 0; i < sizeof(size_t); ++i)
+        word = (word << 8) | v;
+
+    size_t* w = (size_t*)p;
+
+    while (n >= sizeof(size_t)) {
+        *w++ = word;
+        n -= sizeof(size_t);
+    }
+
+    p = (u8*)w;
+
     while (n--)
         *p++ = v;
 
@@ -369,8 +398,27 @@ void* memcpy(void* dst, const void* src, size_t n)
     u8* d = (u8*)dst;
     const u8* s = (const u8*)src;
 
-    for (size_t i = 0; i < n; ++i)
-        d[i] = s[i];
+    while (((uintptr_t)d & (sizeof(size_t) - 1)) &&
+           ((uintptr_t)s & (sizeof(size_t) - 1)) &&
+           n)
+    {
+        *d++ = *s++;
+        --n;
+    }
+
+    size_t* dw = (size_t*)d;
+    const size_t* sw = (const size_t*)s;
+
+    while (n >= sizeof(size_t)) {
+        *dw++ = *sw++;
+        n -= sizeof(size_t);
+    }
+
+    d = (u8*)dw;
+    s = (const u8*)sw;
+
+    while (n--)
+        *d++ = *s++;
 
     return dst;
 }
@@ -384,12 +432,14 @@ void* memmove(void* dst, const void* src, size_t n)
         return dst;
 
     if (d < s) {
-        for (size_t i = 0; i < n; ++i)
-            d[i] = s[i];
-    } else {
-        while (n--)
-            d[n] = s[n];
+        return memcpy(dst, src, n);
     }
+
+    d += n;
+    s += n;
+
+    while (n--)
+        *--d = *--s;
 
     return dst;
 }
@@ -424,22 +474,26 @@ char* getenv(const char* name)
  * Mini heap allocator
  * -------------------------------------------------- */
 
-#define HEAP_SIZE   (1024UL * 1024UL)
+#define HEAP_BLOCK_SIZE (1024UL * 1024UL) 
+#define HEAP_COUNT      4
+#define HEAP_SIZE       (HEAP_BLOCK_SIZE * HEAP_COUNT)
 #define ALIGNMENT   16UL
 #define MAGIC_USED  ((size_t)0xC0FFEEUL)
+#define MAGIC_FREE ((size_t)0xDEADBEEFUL)
 
 #define ALIGN_UP(x) (((x) + (ALIGNMENT - 1)) & ~(ALIGNMENT - 1))
 
 typedef struct HeapBlock {
     size_t size;
     int free;
+    int is_mmap;
     size_t magic;
     struct HeapBlock* next;
 } HeapBlock;
 
 #define HEADER_SIZE ALIGN_UP(sizeof(HeapBlock))
 
-static u32 heap[HEAP_SIZE] __attribute__((aligned(16)));
+static u8 heap[HEAP_SIZE] __attribute__((aligned(16)));
 static size_t heap_off = 0;
 static HeapBlock* heap_head = 0;
 
@@ -574,6 +628,7 @@ static HeapBlock* heap_block_from_ptr(void* p)
  * malloc()
  * -------------------------------------------------- */
 
+
 void* malloc(size_t n)
 {
     HeapBlock* block;
@@ -585,14 +640,33 @@ void* malloc(size_t n)
 
     if (block) {
         block->free = 0;
+        block->magic = MAGIC_USED;
         heap_split_block(block, wanted);
         return (u8*)block + HEADER_SIZE;
     }
 
     block = heap_new_block(wanted);
 
+    if (!block) {
+        void* p = mmap(
+            0,
+            wanted,
+            PROT_READ | PROT_WRITE,
+            MAP_PRIVATE | MAP_ANONYMOUS,
+            -1,
+            0
+        );
+        
+    if ((intptr_t)p < 0)
+        return 0;
+
+        return p;
+    }
+
+
     return (u8*)block + HEADER_SIZE;
 }
+
 
 /* --------------------------------------------------
  * free()
@@ -607,8 +681,18 @@ void free(void* p)
 
     block = heap_block_from_ptr(p);
 
+    if (block->magic != MAGIC_USED)
+        abort();
+
     if (block->free)
         abort();
+
+    block->magic = MAGIC_FREE;
+
+    if (block->is_mmap) {
+        munmap(block, block->size + HEADER_SIZE);
+        return;
+    }
 
     block->free = 1;
 
@@ -624,12 +708,21 @@ void* calloc(size_t n, size_t s)
     size_t total;
     void* p;
 
+#if __STDC_VERSION__ >= 202311L
+    if (ckd_mul(&total, n, s))
+        return 0;
+#else
     if (n != 0 && s > ((size_t)-1) / n)
-        abort();
+        return 0;
 
     total = n * s;
+#endif
 
     p = malloc(total);
+
+    if (!p)
+        return 0;
+
     memset(p, 0, total);
 
     return p;
@@ -655,6 +748,7 @@ void* realloc(void* p, size_t n)
     }
 
     block = heap_block_from_ptr(p);
+
     wanted = heap_align_size(n);
 
     if (block->size >= wanted) {
@@ -663,15 +757,21 @@ void* realloc(void* p, size_t n)
     }
 
     if (block->next && block->next->free) {
-        u8* block_end = (u8*)block + HEADER_SIZE + block->size;
+        u8* block_end =
+            (u8*)block + HEADER_SIZE + block->size;
 
         if (block_end == (u8*)block->next) {
-            size_t combined = block->size + HEADER_SIZE + block->next->size;
+            size_t combined =
+                block->size +
+                HEADER_SIZE +
+                block->next->size;
 
             if (combined >= wanted) {
                 block->size = combined;
                 block->next = block->next->next;
+
                 heap_split_block(block, wanted);
+
                 return p;
             }
         }
@@ -679,11 +779,16 @@ void* realloc(void* p, size_t n)
 
     new_ptr = malloc(n);
 
+    if (!new_ptr)
+        return 0;
+
     copy_size = block->size;
+
     if (copy_size > n)
         copy_size = n;
 
     memcpy(new_ptr, p, copy_size);
+
     free(p);
 
     return new_ptr;
