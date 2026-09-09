@@ -35,7 +35,7 @@ int strncmp(const char*, const char*, size_t);
 #define TRAP()      __builtin_trap()
 
 typedef __INTPTR_TYPE__ intptr_t;
-
+typedef __UINTPTR_TYPE__ uintptr_t;
 typedef __SIZE_TYPE__ size_t;
 typedef unsigned char u8;
 typedef unsigned int  u32;
@@ -442,15 +442,23 @@ int close(int fd)
 int socket(int domain, int type, int protocol)
 {
 #if defined(__x86_64__)
-    return (int)sys_call3(41, domain, type, protocol);   /* SYS_socket */
-#else
+    return (int)sys_call3(41, domain, type, protocol);
+
+#elif defined(__i386__)
     unsigned long args[3];
 
     args[0] = (unsigned long)domain;
     args[1] = (unsigned long)type;
     args[2] = (unsigned long)protocol;
 
-    return (int)sys_call2(102, 1, (long)args);           /* socketcall(SYS_SOCKET) */
+    return (int)sys_call2(102, 1, (long)args);
+
+#elif defined(__aarch64__)
+    return (int)sys_call3(198, domain, type, protocol);
+
+#elif defined(__riscv)
+    return (int)sys_call3(198, domain, type, protocol);
+
 #endif
 }
 
@@ -458,18 +466,28 @@ int socket(int domain, int type, int protocol)
  * connect()
  * -------------------------------------------------- */
 
-int connect(int fd, const struct sockaddr* addr, socklen_t len)
+int connect(int fd,
+            const struct sockaddr* addr,
+            socklen_t len)
 {
 #if defined(__x86_64__)
-    return (int)sys_call3(42, fd, (long)addr, len);      /* SYS_connect */
-#else
+    return (int)sys_call3(42, fd, (long)addr, len);
+
+#elif defined(__i386__)
     unsigned long args[3];
 
     args[0] = (unsigned long)fd;
     args[1] = (unsigned long)addr;
     args[2] = (unsigned long)len;
 
-    return (int)sys_call2(102, 3, (long)args);           /* socketcall(SYS_CONNECT) */
+    return (int)sys_call2(102, 3, (long)args);
+
+#elif defined(__aarch64__)
+    return (int)sys_call3(203, fd, (long)addr, len);
+
+#elif defined(__riscv)
+    return (int)sys_call3(203, fd, (long)addr, len);
+
 #endif
 }
 
@@ -885,7 +903,7 @@ void free(void* p)
     if (block->free)
         abort();
 
-    block->magic = MAGIC_FREE;
+    block->magic = MAGIC_USED;
 
     if (block->is_mmap) {
         munmap(block, block->size + HEADER_SIZE);
