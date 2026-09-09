@@ -669,7 +669,7 @@ void* malloc(size_t n)
     block->magic = MAGIC_USED;
     block->next = 0;
 
-        return p;
+        return (u8*)block + HEADER_SIZE;
     }
 
 
