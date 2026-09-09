@@ -640,6 +640,7 @@ void* malloc(size_t n)
 
     if (block) {
         block->free = 0;
+        block->is_mmap = 0;
         block->magic = MAGIC_USED;
         heap_split_block(block, wanted);
         return (u8*)block + HEADER_SIZE;
@@ -648,6 +649,7 @@ void* malloc(size_t n)
     block = heap_new_block(wanted);
 
     if (!block) {
+        size_t need = HEADER_SIZE + wanted;
         void* p = mmap(
             0,
             wanted,
@@ -659,6 +661,8 @@ void* malloc(size_t n)
         
     if ((intptr_t)p < 0)
         return 0;
+
+    block->is_mmap = 1;
 
         return p;
     }
