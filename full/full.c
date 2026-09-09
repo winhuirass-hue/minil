@@ -575,6 +575,7 @@ int munmap(void* addr, size_t len)
 
 #elif defined(__aarch64__) || defined(__riscv)
     return (int)sys_call2(215, (long)addr, (long)len);
+#endif
 }
 
 /* --------------------------------------------------
