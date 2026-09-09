@@ -244,53 +244,50 @@ static long sys_call6(long n,
 
 static long sys_call1(long n, long a)
 {
-    long ret;
+    register long x0 __asm__("x0") = a;
+    register long x8 __asm__("x8") = n;
 
-    __asm__ volatile (
-        "mov x8, %[num]\n\t"
-        "mov x0, %[a]\n\t"
+    __asm__ volatile(
         "svc #0"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a)
-        : "x8", "memory"
+        : "+r"(x0)
+        : "r"(x8)
+        : "memory"
     );
 
-    return ret;
+    return x0;
 }
 
 static long sys_call2(long n, long a, long b)
 {
-    long ret;
+    register long x0 __asm__("x0") = a;
+    register long x1 __asm__("x1") = b;
+    register long x8 __asm__("x8") = n;
 
     __asm__ volatile (
-        "mov x8, %[num]\n\t"
-        "mov x0, %[a]\n\t"
-        "mov x1, %[b]\n\t"
         "svc #0"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a), [b] "r"(b)
-        : "x8", "memory"
+        : "+r"(x0)
+        : "r"(x1), "r"(x8)
+        : "memory"
     );
 
-    return ret;
+    return x0;
 }
 
 static long sys_call3(long n, long a, long b, long c)
 {
-    long ret;
+    register long x0 __asm__("x0") = a;
+    register long x1 __asm__("x1") = b;
+    register long x2 __asm__("x2") = c;
+    register long x8 __asm__("x8") = n;
 
     __asm__ volatile (
-        "mov x8, %[num]\n\t"
-        "mov x0, %[a]\n\t"
-        "mov x1, %[b]\n\t"
-        "mov x2, %[c]\n\t"
         "svc #0"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c)
-        : "x8", "memory"
+        : "+r"(x0)
+        : "r"(x1), "r"(x2), "r"(x8)
+        : "memory"
     );
 
-    return ret;
+    return x0;
 }
 
 static long sys_call6(long n,
@@ -335,53 +332,52 @@ static long sys_call6(long n,
 
 static long sys_call1(long n, long a)
 {
-    long ret;
+    register long a0 __asm__("a0") = a;
+    register long a7 __asm__("a7") = n;
 
     __asm__ volatile (
-        "mv a7, %[num]\n\t"
-        "mv a0, %[a]\n\t"
         "ecall"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a)
-        : "a7", "memory"
+        : "+r"(a0)
+        : "r"(a7)
+        : "memory"
     );
 
-    return ret;
+    return a0;
 }
 
 static long sys_call2(long n, long a, long b)
 {
-    long ret;
+    register long a0 __asm__("a0") = a;
+    register long a1 __asm__("a1") = b;
+    register long a7 __asm__("a7") = n;
 
-    __asm__ volatile (
-        "mv a7, %[num]\n\t"
-        "mv a0, %[a]\n\t"
-        "mv a1, %[b]\n\t"
+    __asm__ volatile(
         "ecall"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a), [b] "r"(b)
-        : "a7", "memory"
+        : "+r"(a0)
+        : "r"(a1), "r"(a7)
+        : "memory"
     );
 
-    return ret;
+    return a0;
 }
 
 static long sys_call3(long n, long a, long b, long c)
 {
-    long ret;
+    register long a0 __asm__("a0") = a;
+    register long a1 __asm__("a1") = b;
+    register long a2 __asm__("a2") = c;
+    register long a7 __asm__("a7") = n;
 
-    __asm__ volatile (
-        "mv a7, %[num]\n\t"
-        "mv a0, %[a]\n\t"
-        "mv a1, %[b]\n\t"
-        "mv a2, %[c]\n\t"
+    __asm__ volatile(
         "ecall"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c)
-        : "a7", "memory"
+        : "+r"(a0)
+        : "r"(a1),
+          "r"(a2),
+          "r"(a7)
+        : "memory"
     );
 
-    return ret;
+    return a0;
 }
 
 static long sys_call6(long n,
@@ -392,24 +388,27 @@ static long sys_call6(long n,
                       long e,
                       long f)
 {
-    long ret;
+    register long a0 __asm__("a0") = a;
+    register long a1 __asm__("a1") = b;
+    register long a2 __asm__("a2") = c;
+    register long a3 __asm__("a3") = d;
+    register long a4 __asm__("a4") = e;
+    register long a5 __asm__("a5") = f;
+    register long a7 __asm__("a7") = n;
 
-    __asm__ volatile (
-        "mv a7, %[num]\n\t"
-        "mv a0, %[a]\n\t"
-        "mv a1, %[b]\n\t"
-        "mv a2, %[c]\n\t"
-        "mv a3, %[d]\n\t"
-        "mv a4, %[e]\n\t"
-        "mv a5, %[f]\n\t"
+    __asm__ volatile(
         "ecall"
-        : "=r"(ret)
-        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c),
-          [d] "r"(d), [e] "r"(e), [f] "r"(f)
-        : "a7", "memory"
+        : "+r"(a0)
+        : "r"(a1),
+          "r"(a2),
+          "r"(a3),
+          "r"(a4),
+          "r"(a5),
+          "r"(a7)
+        : "memory"
     );
 
-    return ret;
+    return a0;
 }
 
 #else
@@ -510,12 +509,12 @@ void* mmap(void* addr,
            int fd,
            long off)
 {
-#if defined(__x86_64__)
-
     long ret;
 
+#if defined(__x86_64__)
+
     ret = sys_call6(
-        9,              /* SYS_mmap */
+        9,
         (long)addr,
         (long)len,
         (long)prot,
@@ -524,9 +523,7 @@ void* mmap(void* addr,
         (long)off
     );
 
-    return (void*)(intptr_t)ret;
-
-#else
+#elif defined(__i386__)
 
     struct mmap_args {
         unsigned long addr;
@@ -537,33 +534,47 @@ void* mmap(void* addr,
         unsigned long offset;
     } args;
 
-    long ret;
-
     args.addr   = (unsigned long)addr;
     args.len    = (unsigned long)len;
     args.prot   = (unsigned long)prot;
     args.flags  = (unsigned long)flags;
     args.fd     = (unsigned long)fd;
-    args.offset = (unsigned long)off;
+    args.offset = (unsigned long)(off >> 12);
 
-    ret = sys_call1(90, (long)&args);   /* SYS_mmap = 90 */
+    ret = sys_call1(192, (long)&args);   /* mmap2 */
 
-   return (void*)(intptr_t)ret;
-    
+#elif defined(__aarch64__) || defined(__riscv)
+
+    ret = sys_call6(
+        222,
+        (long)addr,
+        (long)len,
+        (long)prot,
+        (long)flags,
+        (long)fd,
+        (long)off
+    );
+
 #endif
+
+    return (void*)(intptr_t)ret;
 }
 
 /* --------------------------------------------------
  * munmap()
  * -------------------------------------------------- */
 
+
 int munmap(void* addr, size_t len)
 {
 #if defined(__x86_64__)
-    return (int)sys_call2(11, (long)addr, (long)len);  /* SYS_munmap = 11 */
-#else
-    return (int)sys_call2(91, (long)addr, (long)len);  /* SYS_munmap = 91 */
-#endif
+    return (int)sys_call2(11, (long)addr, (long)len);
+
+#elif defined(__i386__)
+    return (int)sys_call2(91, (long)addr, (long)len);
+
+#elif defined(__aarch64__) || defined(__riscv)
+    return (int)sys_call2(215, (long)addr, (long)len);
 }
 
 /* --------------------------------------------------
@@ -786,7 +797,7 @@ static HeapBlock* heap_new_block(size_t n)
     size_t need;
 
     if (n > ((size_t)-1) - HEADER_SIZE)
-        abort();
+        return 0;
 
     need = HEADER_SIZE + n;
 
@@ -897,13 +908,13 @@ void free(void* p)
 
     block = heap_block_from_ptr(p);
 
-    if (block->magic != MAGIC_USED)
+    if (block->magic != MAGIC_FREE)
         abort();
 
     if (block->free)
         abort();
 
-    block->magic = MAGIC_USED;
+    block->magic = MAGIC_FREE;
 
     if (block->is_mmap) {
         munmap(block, block->size + HEADER_SIZE);
