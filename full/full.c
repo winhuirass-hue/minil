@@ -79,8 +79,8 @@ void __cxa_pure_virtual(void)
     abort();
 }
 
-/* --------------------------------------------------
- * Raw Linux syscall helpers
+* --------------------------------------------------
+ * Raw Linux syscall helpers - ALL ARCHITECTURES
  * -------------------------------------------------- */
 
 #if defined(__x86_64__)
@@ -152,6 +152,261 @@ static long sys_call6(long n,
           "r"(r8),
           "r"(r9)
         : "rcx", "r11", "memory"
+    );
+
+    return ret;
+}
+
+#elif defined(__i386__)
+
+static long sys_call1(long n, long a)
+{
+    long ret;
+
+    __asm__ volatile (
+        "int $0x80"
+        : "=a"(ret)
+        : "a"(n), "b"(a)
+        : "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call2(long n, long a, long b)
+{
+    long ret;
+
+    __asm__ volatile (
+        "int $0x80"
+        : "=a"(ret)
+        : "a"(n), "b"(a), "c"(b)
+        : "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call3(long n, long a, long b, long c)
+{
+    long ret;
+
+    __asm__ volatile (
+        "int $0x80"
+        : "=a"(ret)
+        : "a"(n), "b"(a), "c"(b), "d"(c)
+        : "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call6(long n,
+                      long a,
+                      long b,
+                      long c,
+                      long d,
+                      long e,
+                      long f)
+{
+    long ret;
+
+    __asm__ volatile (
+        "pushl %%ebp\n\t"
+        "movl %[arg6], %%ebp\n\t"
+        "int $0x80\n\t"
+        "popl %%ebp\n\t"
+        : "=a"(ret)
+        : "0"(n),
+          "b"(a),
+          "c"(b),
+          "d"(c),
+          "S"(d),
+          "D"(e),
+          [arg6] "r"(f)
+        : "memory"
+    );
+
+    return ret;
+}
+
+#elif defined(__aarch64__)
+
+/* ARM64 (AArch64) Syscall Wrappers
+ * 
+ * Calling convention:
+ *   x0-x5: arguments 1-6
+ *   x8: syscall number
+ *   x0: return value
+ * 
+ * Instruction: svc #0 (Supervisor Call)
+ */
+
+static long sys_call1(long n, long a)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mov x8, %[num]\n\t"
+        "mov x0, %[a]\n\t"
+        "svc #0"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a)
+        : "x8", "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call2(long n, long a, long b)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mov x8, %[num]\n\t"
+        "mov x0, %[a]\n\t"
+        "mov x1, %[b]\n\t"
+        "svc #0"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a), [b] "r"(b)
+        : "x8", "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call3(long n, long a, long b, long c)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mov x8, %[num]\n\t"
+        "mov x0, %[a]\n\t"
+        "mov x1, %[b]\n\t"
+        "mov x2, %[c]\n\t"
+        "svc #0"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c)
+        : "x8", "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call6(long n,
+                      long a,
+                      long b,
+                      long c,
+                      long d,
+                      long e,
+                      long f)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mov x8, %[num]\n\t"
+        "mov x0, %[a]\n\t"
+        "mov x1, %[b]\n\t"
+        "mov x2, %[c]\n\t"
+        "mov x3, %[d]\n\t"
+        "mov x4, %[e]\n\t"
+        "mov x5, %[f]\n\t"
+        "svc #0"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c),
+          [d] "r"(d), [e] "r"(e), [f] "r"(f)
+        : "x8", "memory"
+    );
+
+    return ret;
+}
+
+#elif defined(__riscv)
+
+/* RISC-V Syscall Wrappers (RV64 and RV32)
+ * 
+ * Calling convention:
+ *   a0-a5: arguments 1-6
+ *   a7: syscall number
+ *   a0: return value
+ * 
+ * Instruction: ecall (Environment Call)
+ */
+
+static long sys_call1(long n, long a)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mv a7, %[num]\n\t"
+        "mv a0, %[a]\n\t"
+        "ecall"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a)
+        : "a7", "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call2(long n, long a, long b)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mv a7, %[num]\n\t"
+        "mv a0, %[a]\n\t"
+        "mv a1, %[b]\n\t"
+        "ecall"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a), [b] "r"(b)
+        : "a7", "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call3(long n, long a, long b, long c)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mv a7, %[num]\n\t"
+        "mv a0, %[a]\n\t"
+        "mv a1, %[b]\n\t"
+        "mv a2, %[c]\n\t"
+        "ecall"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c)
+        : "a7", "memory"
+    );
+
+    return ret;
+}
+
+static long sys_call6(long n,
+                      long a,
+                      long b,
+                      long c,
+                      long d,
+                      long e,
+                      long f)
+{
+    long ret;
+
+    __asm__ volatile (
+        "mv a7, %[num]\n\t"
+        "mv a0, %[a]\n\t"
+        "mv a1, %[b]\n\t"
+        "mv a2, %[c]\n\t"
+        "mv a3, %[d]\n\t"
+        "mv a4, %[e]\n\t"
+        "mv a5, %[f]\n\t"
+        "ecall"
+        : "=r"(ret)
+        : [num] "r"(n), [a] "r"(a), [b] "r"(b), [c] "r"(c),
+          [d] "r"(d), [e] "r"(e), [f] "r"(f)
+        : "a7", "memory"
     );
 
     return ret;
@@ -231,6 +486,11 @@ static long sys_call6(long n,
 }
 
 #endif
+
+#else
+#error "Unsupported architecture. Supported: x86-64, i386, aarch64, riscv"
+#endif
+
 
 
 /* --------------------------------------------------
