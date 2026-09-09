@@ -277,8 +277,10 @@ _exit:
         li      SYSCALL_REG, SYS_EXIT
         ASM_SYSCALL
 #endif
+_exit_hang:
+
         /* Fallthrough in case of syscall failure */
-        jmp 1b
+        jmp _exit_hang   
 
 .global open
 open:
@@ -291,7 +293,7 @@ open:
         ASM_SYSCALL
         popl    %ebx
 #elif defined(__x86_64__)
-        /* Аргументи вже у %rdi, %rsi, %rdx (ARG0, ARG1, ARG2) */
+        /* Arguments already in %rdi, %rsi, %rdx (ARG0, ARG1, ARG2) */
         movq    $SYS_OPEN, SYSCALL_REG
         ASM_SYSCALL
 #elif defined(__aarch64__)
