@@ -425,9 +425,13 @@ static long sys_call6(long n,
 int close(int fd)
 {
 #if defined(__x86_64__)
-    return (int)sys_call1(3, fd);       /* SYS_close = 3 */
-#else
-    return (int)sys_call1(6, fd);       /* SYS_close = 6 */
+    return (int)sys_call1(3, fd);
+#elif defined(__i386__)
+    return (int)sys_call1(6, fd);
+#elif defined(__aarch64__)
+    return (int)sys_call1(57, fd);
+#elif defined(__riscv)
+    return (int)sys_call1(57, fd);
 #endif
 }
 
