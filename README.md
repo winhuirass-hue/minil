@@ -33,6 +33,7 @@ ABI, and system calls.
 - Manual `argc`, `argv`, `envp` extraction
 - Proper `environ` initialization
 - One `.S` file with C preprocessor for multi‑arch
+- `.init_array` constructor support
 - Freestanding C/C++ application support
 
 ---
@@ -41,9 +42,18 @@ ABI, and system calls.
 
 1. Linux kernel jumps to `_start`
 2. `_start` reads `argc`, `argv`, `envp` from stack
-3. Global `environ` is set manually
-4. `main()` is called directly
-5. Process exits via `_exit` syscall
+3. .init_array execution
+4. Global `environ` is set manually
+5. `main()` is called directly
+6. Process exits via `_exit` syscall
+
+## Why?
+
+Most Linux applications rely on multiple runtime layers before
+`main()` is reached.
+
+minil removes those layers and exposes the Linux process model directly,
+making every transition from kernel to user space explicit.
 
 ---
 
@@ -97,6 +107,12 @@ minil follows a simple rule:
 
 > no hidden runtime, no implicit initialization, no abstraction over syscalls.
 
+## Supported Architectures
+
+- x86_64
+- i386
+- AArch64
+- RISC-V
 
 <p align="right">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
