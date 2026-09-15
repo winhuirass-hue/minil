@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386-blue.svg?style=flat-square">
+  <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20i386%20%7C%20ARM64%20%7C%20RISC-V-blue.svg?style=flat-square">
   <img src="https://img.shields.io/badge/libc-none-red.svg?logo=c&logoColor=white&style=flat-square">
   <img src="https://img.shields.io/badge/freestanding-yes-green.svg?style=flat-square">
   <img src="https://img.shields.io/github/stars/winhuirass-hue/minil?color=yellow&style=flat-square">
