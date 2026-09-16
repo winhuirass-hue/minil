@@ -1,0 +1,8 @@
+Minil Changelog
+
+first log
+
+Thanks to community feedback:
+- fixed x86_64 constructor stack alignment
+- improved compiler flags
+- improved CI configuration
