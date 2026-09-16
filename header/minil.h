@@ -46,7 +46,6 @@ __asm__ (
 #if defined(__x86_64__)
         "       pushq   %r12                            \n"
         "       pushq   %r13                            \n"
-        "       subq    $8, %rsp                        \n"
         "       leaq    __init_array_start(%rip), %r12  \n"
         "       leaq    __init_array_end(%rip),   %r13  \n"
         "1:                                             \n"
@@ -57,7 +56,6 @@ __asm__ (
         "       call    *%rax                           \n"
         "       jmp     1b                              \n"
         "2:                                             \n"
-        "       addq    $8, %rsp                        \n"
         "       popq    %r13                            \n"
         "       popq    %r12                            \n"
         "       ret                                     \n"
