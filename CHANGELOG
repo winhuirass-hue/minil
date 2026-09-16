@@ -4,5 +4,8 @@ first log
 
 Thanks to community feedback:
 - fixed x86_64 constructor stack alignment
+- fix constructor initialization crash
 - improved compiler flags
 - improved CI configuration
+
+Reported-by: u/skeeto
