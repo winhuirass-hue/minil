@@ -19,4 +19,19 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix
+      matrix:
+        language: [ 'cpp' ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Build
+        run: |
+          gcc -nostdlib -no-pie minil.S app.c \
+            -O2 -ffreestanding -o app
+
+      - uses: github/codeql-action/analyze@v3
