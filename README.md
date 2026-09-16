@@ -66,13 +66,13 @@ making every transition from kernel to user space explicit.
 Single‑command build (recommended):
 
 ```bash
-gcc -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app
+gcc -nostdlib -fno-pie -fcf-protection=none -no-pie minil.S app.c -O2 -ffreestanding -o app
 ```
 
 ### 32‑bit (i386)
 
 ```bash
-gcc -m32 -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
+gcc -m32 fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
 ```
 
 ---
