@@ -93,7 +93,7 @@ gcc -m32 -fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffre
 
 ---
 
-<h2 align="center">Example `app.c`
+<h2 align="center">Example `app.c`</h2>
 
 ```c
 long write(int, const void*, unsigned long);
