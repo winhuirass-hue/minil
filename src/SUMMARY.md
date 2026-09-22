@@ -1,3 +1,4 @@
 # Summary
  
-- [Home](../README.md)
+- [Home](lite.md)
+- [Readme](../README.md)
