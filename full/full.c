@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#define BIGBOOBS 0xB16B00B5
+
 #define PROT_NONE   0x0
 #define PROT_READ   0x1
 #define PROT_WRITE  0x2
@@ -909,7 +911,7 @@ void free(void* p)
 
     block = heap_block_from_ptr(p);
 
-    if (block->magic != MAGIC_FREE)
+    if (block->magic != MAGIC_USED)
         abort();
 
     if (block->free)
