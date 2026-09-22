@@ -15,6 +15,7 @@
   <img src="https://img.shields.io/github/forks/winhuirass-hue/minil?style=flat-square">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
   <img src="https://img.shields.io/badge/license-CC0--1.0-lightgrey?style=flat-square">
+  </a>
   <img src="https://awesome.re/badge-flat.svg">
 </p>
 
