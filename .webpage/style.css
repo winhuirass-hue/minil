@@ -1,0 +1,46 @@
+body {
+    background: #0f1117;
+    color: white;
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.hero {
+    text-align: center;
+}
+
+.logo {
+    width: 180px;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+.buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.section {
+    margin-top: 3rem;
+}
+
+blockquote {
+    border-left: 4px solid #2563eb;
+    padding-left: 1rem;
+    color: #cbd5e1;
+}
+
+footer {
+    margin-top: 4rem;
+    text-align: center;
+    opacity: .7;
+}
