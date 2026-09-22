@@ -1,9 +1,16 @@
-/* This software is dedicated to the public domain under CC0 1.0 Universal. */
-/* See LICENCE.md for full legal text. */
+/* ========================================================================== *
+ * minil - Minimal Linux User-Space Runtime                                   *
+ * This file - Full Runtime Implementation                                    *
+ * -------------------------------------------------------------------------- *
+ * This software is dedicated to the public domain under CC0 1.0 Universal.   *
+ * See LICENCE.md for full legal text.                                        *
+ * ========================================================================== */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <stdarg.h>
 
 #define BIGBOOBS 0xB16B00B5
 
@@ -17,8 +24,113 @@ extern "C" {
 #define MAP_FIXED       0x10
 #define MAP_ANONYMOUS   0x20
 
+typedef __INTPTR_TYPE__ intptr_t;
+typedef __UINTPTR_TYPE__ uintptr_t;
+typedef __SIZE_TYPE__ size_t;
+typedef unsigned char u8;
+typedef unsigned int  u32;
+
+typedef signed char        i8;
+typedef int                i32;
+
+
 size_t strlen(const char*);
 int strncmp(const char*, const char*, size_t);
+
+/* Definition of the NORETURN attribute according to the standard */
+#if (defined(__cplusplus) && __cplusplus >= 201103L) || \
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L)
+    #define NORETURN [[noreturn]]
+#else
+    #define NORETURN __attribute__((noreturn))
+#endif
+
+/* Protection against compiler optimizations that generate recursive calls */
+#if defined(__clang__)
+    #define NO_LOOP_DISTRIBUTE
+#else
+    #define NO_LOOP_DISTRIBUTE __attribute__((no_tree_loop_distribute_patterns))
+#endif
+
+static void buf_putc(char** buf, size_t* remain, char c) {
+    if (*remain > 1) {
+        **buf = c;
+        (*buf)++;
+        (*remain)--;
+    }
+}
+
+static void buf_puts(char** buf, size_t* remain, const char* s) {
+    while (*s) {
+        buf_putc(buf, remain, *s++);
+    }
+}
+
+static void buf_putnum(char** buf, size_t* remain, unsigned long n, int base) {
+    static const char digits[] = "0123456789abcdef";
+    char tmp[32];
+    int i = 0;
+    if (n == 0) { buf_putc(buf, remain, '0'); return; }
+    while (n > 0) {
+        tmp[i++] = digits[n % base];
+        n /= base;
+    }
+    while (i > 0) buf_putc(buf, remain, tmp[--i]);
+}
+
+int snprintf(char* str, size_t size, const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    
+    char* p = str;
+    size_t remain = size;
+
+    for (const char* f = format; *f; f++) {
+        if (*f != '%' || !*(f + 1)) {
+            buf_putc(&p, &remain, *f);
+            continue;
+        }
+        
+        switch (*++f) {
+            case 's': {
+                const char* s = va_arg(args, const char*);
+                if (!s) s = "(null)";
+                buf_puts(&p, &remain, s);
+                break;
+            }
+            case 'd': {
+                int val = va_arg(args, int);
+                if (val < 0) {
+                    buf_putc(&p, &remain, '-');
+                    /* Safe cast for INT_MIN to avoid signed overflow UB */
+                    unsigned long uval = (val == -2147483647 - 1) ? 2147483648UL : (unsigned long)(-val);
+                    buf_putnum(&p, &remain, uval, 10);
+                } else {
+                    buf_putnum(&p, &remain, (unsigned long)val, 10);
+                }
+                break;
+            }
+            case 'x': {
+                buf_putnum(&p, &remain, va_arg(args, unsigned int), 16); 
+                break;
+            }
+            case 'p': {
+                buf_puts(&p, &remain, "0x"); 
+                buf_putnum(&p, &remain, (unsigned long)(size_t)va_arg(args, void*), 16); 
+                break;
+            }
+            default: {
+                buf_putc(&p, &remain, *f); 
+                break;
+            }
+        }
+    }
+    
+    if (remain > 0) *p = '\0';
+    va_end(args);
+    return (int)(p - str);
+}
+
 
 #if __STDC_VERSION__ >= 202311L
 
@@ -35,15 +147,6 @@ int strncmp(const char*, const char*, size_t);
 #define UNLIKELY(x) __builtin_expect(!!(x), 0)
 
 #define TRAP()      __builtin_trap()
-
-typedef __INTPTR_TYPE__ intptr_t;
-typedef __UINTPTR_TYPE__ uintptr_t;
-typedef __SIZE_TYPE__ size_t;
-typedef unsigned char u8;
-typedef unsigned int  u32;
-
-typedef signed char        i8;
-typedef int                i32;
 
 typedef unsigned short sa_family_t;
 typedef unsigned int   socklen_t;
@@ -64,7 +167,8 @@ struct sockaddr_un {
 #define SOCK_STREAM  1
 #define SOCK_DGRAM   2
 
-extern void _exit(int) __attribute__((noreturn));
+/* External symbols from assembler crt0 */
+extern void _exit(int) NORETURN;
 extern char** environ;
 
 /* --------------------------------------------------
