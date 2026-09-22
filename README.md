@@ -27,7 +27,7 @@ ABI, and system calls.
 
 ---
 
-## Features
+<h2 align="center">Features</h2>
 
 - Custom `_start` (no `crt1.o`)
 - No glibc / libc / libgcc / libstdc++
@@ -42,7 +42,7 @@ ABI, and system calls.
 
 ---
 
-## How It Works
+<h2 align="center">How It Works</h2>
 
 1. Linux kernel jumps to `_start`
 2. `_start` reads `argc`, `argv`, `envp` from stack
@@ -51,7 +51,7 @@ ABI, and system calls.
 5. `main()` is called directly
 6. Process exits via `_exit` syscall
 
-## Why?
+<h2 align="center">Why?</h2>
 
 Most Linux applications rely on multiple runtime layers before
 `main()` is reached.
@@ -61,7 +61,7 @@ making every transition from kernel to user space explicit.
 
 ---
 
-## Runtime Components
+<h2 align="center">Runtime Components</h2>
 
 minil provides:
 
@@ -77,7 +77,7 @@ minil provides:
 
 ---
 
-## Build
+<h2 align="center">Build</h2>
 
 Single‑command build (recommended):
 
@@ -85,7 +85,7 @@ Single‑command build (recommended):
 gcc -nostdlib -fno-pie -fcf-protection=none -no-pie minil.S app.c -O2 -ffreestanding -o app
 ```
 
-### 32‑bit (i386)
+<h3 align="center">32‑bit (i386)</h3>
 
 ```bash
 gcc -m32 -fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
@@ -93,7 +93,7 @@ gcc -m32 -fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffre
 
 ---
 
-## Example `app.c`
+<h2 align="center">Example `app.c`
 
 ```c
 long write(int, const void*, unsigned long);
@@ -112,7 +112,7 @@ int main(void) {
 
 ---
 
-## Use Cases
+<h2 align="center">Use Cases</h2>
 
 - Minimal ELF utilities
 - Learning Linux ABI and process startup
@@ -121,13 +121,13 @@ int main(void) {
 - libc‑free sandboxed tools
 
 
-## Philosophy
+<h2 align="center">Philosophy</h2>
 
 minil follows a simple rule:
 
 > no hidden runtime, no implicit initialization, no abstraction over syscalls.
 
-## Supported Architectures
+<h2 align="center">Supported Architectures</h2>
 
 - x86_64
 - i386
