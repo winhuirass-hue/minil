@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>minil</title>
+</head>
+<body>
+
+<div class="hero">
+    <img src="../img/logo.svg" class="logo">
+
+    <h1>minil</h1>
+
+    <p>
+        minimal runtime, maximal control
+    </p>
+
+    <div class="buttons">
+        <a href="https://github.com/winhuirass-hue/minil/">
+            GitHub
+        </a>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Features</h2>
+
+    <ul>
+        <li>Custom _start</li>
+        <li>No glibc</li>
+        <li>No libstdc++</li>
+        <li>Direct Linux syscalls</li>
+        <li>malloc/free/realloc</li>
+        <li>mmap/munmap</li>
+        <li>snprintf</li>
+        <li>C++ new/delete</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Philosophy</h2>
+
+    <blockquote>
+        no hidden runtime,
+        no implicit initialization,
+        no abstraction over syscalls.
+    </blockquote>
+</div>
+
+<footer>
+    MINIL_SIGNATURE = 0x1DB
+</footer>
+
+</body>
+</html>
