@@ -61,6 +61,22 @@ making every transition from kernel to user space explicit.
 
 ---
 
+## Runtime Components
+
+minil provides:
+
+- process startup (_start)
+- argc / argv / envp initialization
+- environ support
+- direct Linux syscalls
+- memory allocator (malloc/free/realloc/calloc)
+- memory mapping (mmap/munmap)
+- string and memory functions
+- snprintf()
+- basic C++ runtime support
+
+---
+
 ## Build
 
 Single‑command build (recommended):
@@ -72,7 +88,7 @@ gcc -nostdlib -fno-pie -fcf-protection=none -no-pie minil.S app.c -O2 -ffreestan
 ### 32‑bit (i386)
 
 ```bash
-gcc -m32 fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
+gcc -m32 -fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
 ```
 
 ---
