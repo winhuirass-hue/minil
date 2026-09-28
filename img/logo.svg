@@ -1,16 +1,53 @@
-<svg width="580" height="320" viewBox="0 0 580 320" xmlns="http://www.w3.org/2000/svg">
- <!-- glitch filter -->
-  <defs>
-    <filter id="glitch">
-      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2">
-        <animate attributeName="baseFrequency"
-          values="0.01;0.02;0.01"
-          dur="0.3s"
-          repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" scale="5"/>
-    </filter>
-  </defs>
+<svg width="580"
+height="320"
+viewBox="0 0 580 320"
+xmlns="http://www.w3.org/2000/svg">
+ 
+<defs>
+ 
+<!-- CRT glow -->
+<filter id="crtGlow" x="-50%" y="-50%" width="200%" height="200%">
+<feGaussianBlur stdDeviation="2" result="blur"/>
+<feMerge>
+<feMergeNode in="blur"/>
+<feMergeNode in="SourceGraphic"/>
+</feMerge>
+</filter>
+ 
+<!-- glitch -->
+<filter id="glitch">
+ 
+<feTurbulence type="fractalNoise"
+baseFrequency="0.01"
+numOctaves="2"
+seed="5">
+ 
+<animate attributeName="baseFrequency"
+values="0.01;0.03;0.01"
+dur="0.18s"
+repeatCount="indefinite"/>
+ 
+</feTurbulence>
+ 
+<feDisplacementMap in="SourceGraphic"
+scale="6"/>
+ 
+</filter>
+ 
+<!-- scanlines -->
+<pattern id="scanlines"
+width="4"
+height="4"
+patternUnits="userSpaceOnUse">
+ 
+<rect width="4"
+height="2"
+fill="#000"
+opacity="0.15"/>
+ 
+</pattern>
+ 
+</defs>
   <g fill="#00ff00" style="filter: drop-shadow(0 0 4px #00ff00)" filter="url(#glitch)">
    
     <!-- red shift -->
