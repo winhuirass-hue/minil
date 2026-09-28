@@ -11,7 +11,7 @@
       <feDisplacementMap in="SourceGraphic" scale="5"/>
     </filter>
   </defs>
-  <g fill="#00ff00" style="filter: drop-shadow(0 0 2px #00ff00)" filter="url(#glitch)">
+  <g fill="#00ff00" style="filter: drop-shadow(0 0 4px #00ff00)" filter="url(#glitch)">
    
     <!-- red shift -->
     <g fill="red" transform="translate(2,0)" opacity="0.6">
