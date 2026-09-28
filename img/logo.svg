@@ -1,208 +1,36 @@
-<svg width="580"
-     height="320"
-     viewBox="0 0 580 320"
-     xmlns="http://www.w3.org/2000/svg">
-
+<svg width="580" height="320" viewBox="0 0 580 320" xmlns="http://www.w3.org/2000/svg">
+ <!-- glitch filter -->
   <defs>
-
-    <!-- CRT glow -->
-    <filter id="crtGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- glitch -->
     <filter id="glitch">
-
-      <feTurbulence type="fractalNoise"
-                    baseFrequency="0.01"
-                    numOctaves="2"
-                    seed="5">
-
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2">
         <animate attributeName="baseFrequency"
-                 values="0.01;0.03;0.01"
-                 dur="0.18s"
-                 repeatCount="indefinite"/>
-
+          values="0.01;0.02;0.01"
+          dur="0.3s"
+          repeatCount="indefinite"/>
       </feTurbulence>
-
-      <feDisplacementMap in="SourceGraphic"
-                         scale="6"/>
-
+      <feDisplacementMap in="SourceGraphic" scale="5"/>
     </filter>
-
-    <!-- scanlines -->
-    <pattern id="scanlines"
-             width="4"
-             height="4"
-             patternUnits="userSpaceOnUse">
-
-      <rect width="4"
-            height="2"
-            fill="#000"
-            opacity="0.15"/>
-
-    </pattern>
-
   </defs>
-
-  <!-- falling binary -->
-
-  <g fill="#00ff66"
-     opacity="0.08"
-     font-family="monospace"
-     font-size="16">
-
-    <text x="40" y="-100">
-      1011010011010110011010
-      <animate attributeName="y"
-               from="-100"
-               to="420"
-               dur="8s"
-               repeatCount="indefinite"/>
-    </text>
-
-    <text x="120" y="-150">
-      0101001101010010101001
-      <animate attributeName="y"
-               from="-150"
-               to="420"
-               dur="10s"
-               repeatCount="indefinite"/>
-    </text>
-
-    <text x="220" y="-90">
-      1010101100101011010101
-      <animate attributeName="y"
-               from="-90"
-               to="420"
-               dur="9s"
-               repeatCount="indefinite"/>
-    </text>
-
-    <text x="380" y="-120">
-      0101010101011010011010
-      <animate attributeName="y"
-               from="-120"
-               to="420"
-               dur="11s"
-               repeatCount="indefinite"/>
-    </text>
-
-  </g>
-
-  <!-- logo -->
-
-  <g filter="url(#crtGlow)">
-
-    <!-- RGB RED -->
-    <g fill="#ff0033"
-       opacity="0.35">
-
-      <animateTransform
-          attributeName="transform"
-          type="translate"
-          values="0,0;3,0;-2,1;0,0"
-          dur="0.12s"
-          repeatCount="indefinite"/>
-
-      <text font-family="monospace"
-            font-size="110"
-            x="40"
-            y="190">
-        MiNIL
-      </text>
-
+  <g fill="#00ff00" style="filter: drop-shadow(0 0 1px #00ff00)" filter="url(#glitch)">
+   
+    <!-- red shift -->
+    <g fill="red" transform="translate(2,0)" opacity="0.6">
+      <text transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)">1</text>
     </g>
 
-    <!-- RGB BLUE -->
-    <g fill="#0099ff"
-       opacity="0.35">
-
-      <animateTransform
-          attributeName="transform"
-          type="translate"
-          values="0,0;-3,0;2,-1;0,0"
-          dur="0.12s"
-          repeatCount="indefinite"/>
-
-      <text font-family="monospace"
-            font-size="110"
-            x="40"
-            y="190">
-        MiNIL
-      </text>
-
+    <!-- blue shift -->
+    <g fill="blue" transform="translate(-2,0)" opacity="0.6">
+      <text transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)">1</text>
     </g>
 
-    <!-- MAIN -->
-
-    <g fill="#39ff14"
-       filter="url(#glitch)">
-
-      <animate attributeName="opacity"
-               values="1;0.95;1;0.92;1"
-               dur="0.10s"
-               repeatCount="indefinite"/>
-
-      <text font-family="monospace"
-            font-size="110"
-            x="40"
-            y="190">
-        MiNIL
-      </text>
-
-    </g>
-
-  </g>
-
-  <!-- subtitle -->
-
-  <text x="290"
-        y="245"
-        text-anchor="middle"
-        fill="#39ff14"
-        font-family="monospace"
-        font-size="14"
-        letter-spacing="3">
-
-    MINIMAL RUNTIME · MAXIMAL CONTROL
-
-    <animate attributeName="opacity"
-             values="1;0.7;1"
-             dur="1.5s"
-             repeatCount="indefinite"/>
-
-  </text>
-
-  <!-- signature -->
-
-  <text x="290"
-        y="275"
-        text-anchor="middle"
-        fill="#00ff66"
-        opacity="0.8"
-        font-family="monospace"
-        font-size="12">
-
-    MINIL_SIGNATURE = 0x1DB
-
-  </text>
-
-  <!-- screen tint -->
-
-  <rect width="580"
-        height="320"
-        fill="#00ff00"
-        opacity="0.02"/>
-
-  <!-- scanlines -->
-
-  <rect width="580"
-        height="320"
-        fill="url(#scanlines)"/>
-
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(-8.05537 0.0110782 0.0157302 7.0803 1292.5 -575.004)" x="149.4"  y="120.4">1</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(7.30617 0.0110782 -0.0142672 7.0803 -913.503 -595.004)" x="146.92"  y="123.23">1</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(4.81943 0 0 5.03676 -997.361 -791.766)" x="259.4"  y="212.4">1</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(3.91083 0 0 3.01187 -672.62 -257.304)" x="236.4"  y="140.4">0</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(4.39919 0 0 5.27528 -1004.49 -906.098)" x="336.4"  y="223.4">1</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(4.81943 0 0 5.03676 -851.361 -814.766)" x="263.55"  y="216.37">1</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(3.91083 0 0 3.01187 -526.62 -280.304)" x="241.51"  y="147.04">0</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(-3.66162 0 0 4.30469 1418.85 -644.053)" x="300.4"  y="212.4">1</text>
+  <text fill="#00ff00" font-family="Monospace" font-size="24" text-anchor="middle" transform="matrix(3.55096 0 0 -3.94395 -695.915 1026.82)" x="294.94"  y="217.05">1</text>
+ </g>
 </svg>
