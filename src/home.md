@@ -82,16 +82,6 @@ minil provides:
 
 Single‑command build (recommended):
 
-```bash
-gcc -nostdlib -fno-pie -fcf-protection=none -no-pie minil.S app.c -O2 -ffreestanding -o app
-```
-
-<h3 align="center">32‑bit (i386)</h3>
-
-```bash
-gcc -m32 -fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
-```
-
 ---
 
 <h2 align="center">Example <code>app.c</code></h2>
