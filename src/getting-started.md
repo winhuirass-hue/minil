@@ -42,6 +42,16 @@ git clone https://github.com/winhuirass-hue/minil.git
 cd minil
 ```
 
+```bash
+gcc -nostdlib -fno-pie -fcf-protection=none -no-pie minil.S app.c -O2 -ffreestanding -o app
+```
+
+### 32‑bit (i386)
+
+```bash
+gcc -m32 -fno-pie -fcf-protection=none -nostdlib -no-pie minil.S app.c -O2 -ffreestanding -o app32
+```
+
 
 
 
