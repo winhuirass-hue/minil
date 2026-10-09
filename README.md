@@ -136,6 +136,7 @@ minil follows a simple rule:
 - RISC-V
 
 <h2 align="center">Runtime Flow</h2>
+
 ```
 Linux Kernel
       │
