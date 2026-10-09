@@ -16,7 +16,7 @@ Instead, the runtime communicates directly with the Linux kernel through system 
 
 ---
 
-# Requirements
+## Requirements
 
 Supported architectures:
 
@@ -33,7 +33,7 @@ Required tools:
 
 ---
 
-# Building
+## Building
 
 Clone the repository:
 
