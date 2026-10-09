@@ -1,0 +1,10 @@
+[book]
+title = "minil"
+description = "minimal runtime, maximal control"
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "rust"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/winhuirass-hue/minil"
