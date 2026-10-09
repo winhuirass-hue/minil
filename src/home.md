@@ -135,6 +135,30 @@ minil follows a simple rule:
 - AArch64
 - RISC-V
 
+<h2 align="center">Runtime Flow</h2>
+
+```
+Linux Kernel
+      │
+      ▼
+    _start
+      │
+      ▼
+argc / argv / envp
+      │
+      ▼
+   environ
+      │
+      ▼
+ .init_array
+      │
+      ▼
+    main()
+      │
+      ▼
+    _exit()
+```
+
 <p align="right">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
     <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="License: CC0 1.0">
