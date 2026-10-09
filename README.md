@@ -136,7 +136,7 @@ minil follows a simple rule:
 - RISC-V
 
 <h2 align="center">Runtime Flow</h2>
-```text
+```
 Linux Kernel
       │
       ▼
@@ -157,7 +157,6 @@ argc / argv / envp
       ▼
     _exit()
 ```
-
 
 <p align="right">
   <a href="https://creativecommons.org/publicdomain/zero/1.0/">
