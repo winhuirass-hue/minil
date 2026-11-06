@@ -1,4 +1,4 @@
-<a href="https://github.com/winhuirass-hue/minil/"
+<a href="https://github.com/winhuirass-hue/minil/">
 <p align="center">
   <img src="img/logo.svg">
 </p>
