@@ -1,6 +1,8 @@
+<a href="https://github.com/winhuirass-hue/minil/"
 <p align="center">
   <img src="img/logo.svg">
 </p>
+</a>
 
 <p align="center">
   <i>minimal runtime, maximal control</i>
